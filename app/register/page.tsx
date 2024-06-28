@@ -41,11 +41,14 @@ export default function HOME() {
     };
 
     const handleIdCheck = async () => {
+        const data = formData.id;
+    
         const response = await fetch('/api/register/id', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id: formData.id })
+            headers:{'Content-Type': 'application/json'},
+            body: JSON.stringify({ data })
         });
+        console.log(data);
 
         if (response.ok) {
             setIsIdChecked(true);
@@ -83,9 +86,8 @@ export default function HOME() {
     };
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault(); // 폼의 기본 제출 동작을 막습니다.
+        e.preventDefault();
         
-        // API 요청을 보냅니다.
         const response = await fetch('/api/register/complete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
