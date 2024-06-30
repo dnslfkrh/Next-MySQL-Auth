@@ -41,14 +41,14 @@ export default function HOME() {
     };
 
     const handleIdCheck = async () => {
-        const data = formData.id;
+        const id = formData.id;
     
         const response = await fetch('/api/register/id', {
             method: 'POST',
             headers:{'Content-Type': 'application/json'},
-            body: JSON.stringify({ data })
+            body: JSON.stringify({ id })
         });
-        console.log(data);
+        console.log(id);
 
         if (response.ok) {
             setIsIdChecked(true);
