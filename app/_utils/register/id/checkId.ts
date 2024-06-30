@@ -5,7 +5,7 @@ const checkIdAvailability = async (id: string): Promise<boolean> => {
     console.log("디비 파일로 이동 성공", id);
 
     try {
-        const [rows] = await pool.execute<RowDataPacket[]>('SELECT * FROM users WHERE user_id = ?', [id]);
+        const [rows] = await pool.execute<RowDataPacket[]>('SELECT user_id FROM users WHERE user_id = ?', [id]);
 
         console.log("데이터베이스에서 조회된 결과:", rows);
 
