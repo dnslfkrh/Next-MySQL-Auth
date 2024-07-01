@@ -18,6 +18,7 @@ const sendCode = async (email: string, code: string): Promise<boolean> => {
         };
 
         await transporter.sendMail(mailOptions);
+
         return true;
     } catch (error) {
         console.error('Failed to send email:', error);

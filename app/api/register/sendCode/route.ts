@@ -2,25 +2,29 @@
 import { NextResponse } from "next/server";
 import createCode from "@/app/_utils/register/sendCode/code";
 import sendCode from "@/app/_utils/register/sendCode/nodemailer";
+import { createLog } from "@/app/_utils/register/sendCode/database";
 
 export async function POST(req: Request) {
     try {
         const data = await req.json();
         const { email } = data;
 
-        // 코드 생성
-        const code: string = await createCode();
-        console.log(code);
 
-        // 이메일 전송
+        const code: string = await createCode();
+        
         const isSentSuccessfully = await sendCode(email, code);
 
-        if(isSentSuccessfully) {
-            console.log("전송 완료");
-            return NextResponse.json({ message: '전송 성공' }, { status: 200 });
+        if (isSentSuccessfully) {
+            
+            const isLogCreated = await createLog(email, code);
+
+            if(isLogCreated) {
+                return NextResponse.json({ message: '전송 성공' }, { status: 200 });
+            } else {
+                return NextResponse.json({ message: '전송 실패' }, { status: 500 });
+            }
         } else {
-            console.log("전송 완료");
-            return NextResponse.json({ message: '전송 실패' }, { status: 500 });
+            return NextResponse.json({ message: '서버 오류' }, { status: 500 });
         }
 
     } catch (error) {

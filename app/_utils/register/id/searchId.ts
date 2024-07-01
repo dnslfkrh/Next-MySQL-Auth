@@ -5,6 +5,8 @@ const checkIdAvailability = async (id: string): Promise<boolean> => {
 
     try {
         const [isIdExist] = await database.execute<RowDataPacket[]>('SELECT user_id FROM users WHERE user_id = ?', [id]);
+        // const query = 'SELECT user_id FROM users WHERE user_id = ?';
+        // const [isIdExist] = await.query(query, [id]);
 
         if (Array.isArray(isIdExist) && isIdExist.length === 0) {
             return true;
