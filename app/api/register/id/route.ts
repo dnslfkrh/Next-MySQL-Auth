@@ -1,28 +1,23 @@
-import type { NextApiRequest, NextApiResponse } from "next";
+import { NextResponse } from 'next/server';
 import checkIdAvailability from '../../../_utils/register/id/checkId';
 
-export async function POST(req: Request, res: NextApiResponse) {
+export async function POST(req: Request) {
+    try {
+        const data = await req.json();
+        const { id } = data;
+        console.log("받은 아이디:", id);
 
-    if (req.method === 'POST') {
-        try {
-            const data = await req.json();
-            const { id } = data;
-            console.log("받은 아이디:", id);
+        const isIdAvailable = await checkIdAvailability(id);
 
-            const isAvailable = await checkIdAvailability(id);
-
-            if (isAvailable) {
-                console.log('생성 가능');
-                res.status(200).json({ message: '가능' });
-            } else {
-                console.log('생성 불가');
-                res.status(404).json({ message: '불가' });
-            }
-        } catch (error) {
-            console.error('Error checking ID:', error);
-            res.status(500).json({ error: '서버 오류가 발생했습니다.' });
+        if (isIdAvailable) {
+            console.log('생성 가능');
+            return NextResponse.json({ message: '가능' }, { status: 200 });
+        } else {
+            console.log('생성 불가');
+            return NextResponse.json({ message: '불가' }, { status: 200 });
         }
-    } else {
-        res.status(405).json({ message: 'Method Not Allowed' });
+    } catch (error) {
+        console.error('Error checking ID:', error);
+        return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
     }
 }
