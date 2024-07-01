@@ -1,12 +1,10 @@
 import { NextResponse } from 'next/server';
-import checkIdAvailability from '@/app/_utils/register/id/checkId';
+import checkIdAvailability from '@/app/_utils/register/id/searchId';
 
 export async function POST(req: Request) {
     try {
         const data = await req.json();
         const { id } = data;
-        console.log("받은 아이디:", id);
-
         const isIdAvailable = await checkIdAvailability(id);
 
         if (isIdAvailable) {
@@ -20,4 +18,4 @@ export async function POST(req: Request) {
         console.error('Error checking ID:', error);
         return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
     }
-}
+};
