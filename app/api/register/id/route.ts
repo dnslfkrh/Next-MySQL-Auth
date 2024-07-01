@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import checkIdAvailability from '../../../_utils/register/id/checkId';
+import checkIdAvailability from '@/app/_utils/register/id/checkId';
 
 export async function POST(req: Request) {
     try {
