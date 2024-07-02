@@ -32,6 +32,8 @@ export default function HOME() {
         });
 
         if (name === 'id') {
+            setIsIdChecked(false);
+
             const isValid = /^[a-zA-Z0-9]*$/.test(value) && value.length <= 12;
             if (!isValid && value !== '') {
                 alert('아이디는 영어와 숫자만을 포함하여 12글자 이하로 설정 가능합니다.');
@@ -43,11 +45,22 @@ export default function HOME() {
             }
         }
 
+        if (name === 'email') {
+            setIsEmailSent(false);
+        }
+
+        if (name === 'code') {
+            setIsCodeVerified(false);
+        }
+
+
         if (name === 'password') {
+            setIsPasswordValid(false);
             setIsPasswordValid(/^(?=.*[!@#$%^&*])(?=.*\d).{8,}$/.test(value));
         }
 
         if (name === 'confirmPassword') {
+            setIsConfirmPasswordValid(false);
             setIsConfirmPasswordValid(value === formData.password);
         }
     };
@@ -93,7 +106,12 @@ export default function HOME() {
             alert('이메일을 확인하세요.');
             setIsEmailSent(true);
         } else {
-            alert('오류가 발생했습니다.');
+            const errorData = await response.json();
+            if (response.status === 400 && errorData.message === '이미 등록된 이메일입니다.') {
+                alert('사용할 수 없는 이메일입니다.');
+            } else {
+                alert('오류가 발생했습니다.');
+            }
             setIsEmailSent(false);
         }
     };
@@ -106,8 +124,10 @@ export default function HOME() {
         });
 
         if (response.ok) {
+            alert('이메일이 확인되었습니다.');
             setIsCodeVerified(true);
         } else {
+            alert('오류가 발생했습니다.');
             setIsCodeVerified(false);
         }
     };
@@ -118,7 +138,11 @@ export default function HOME() {
         const response = await fetch('/api/register/complete', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
+            body: JSON.stringify({
+                id: formData.id,
+                email: formData.email,
+                password: formData.password
+            })
         });
 
         if (response.ok) {
