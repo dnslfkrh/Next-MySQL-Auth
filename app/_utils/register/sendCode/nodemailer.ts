@@ -13,8 +13,8 @@ const sendCode = async (email: string, code: string): Promise<boolean> => {
         const mailOptions = {
             from: 'your-email@gmail.com',
             to: email,
-            subject: 'Your verification code',
-            text: `Here is [${code}]`
+            subject: 'Verification code',
+            text: `Your verification code is : [${code}]`
         };
 
         await transporter.sendMail(mailOptions);

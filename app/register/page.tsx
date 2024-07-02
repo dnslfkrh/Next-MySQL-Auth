@@ -32,11 +32,9 @@ export default function HOME() {
         });
 
         if (name === 'id') {
-            // ID는 영어와 숫자만 입력 가능
-            const isValid = /^[a-zA-Z0-9]*$/.test(value);
+            const isValid = /^[a-zA-Z0-9]*$/.test(value) && value.length <= 12;
             if (!isValid && value !== '') {
-                alert('아이디는 영어와 숫자만 입력 가능합니다.');
-                // ID 입력칸 공백으로 변경
+                alert('아이디는 영어와 숫자만을 포함하여 12글자 이하로 설정 가능합니다.');
                 setFormData(prevState => ({
                     ...prevState,
                     [name]: ''
@@ -101,10 +99,10 @@ export default function HOME() {
     };
 
     const handleCodeVerify = async () => {
-        const response = await fetch('/api/register/veriftCode', {
+        const response = await fetch('/api/register/verifyCode', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ code: formData.code })
+            body: JSON.stringify({ email: formData.email, code: formData.code })
         });
 
         if (response.ok) {

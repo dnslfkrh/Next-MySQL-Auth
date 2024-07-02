@@ -1,8 +1,7 @@
-// api 라우터
 import { NextResponse } from "next/server";
 import createCode from "@/app/_utils/register/sendCode/code";
 import sendCode from "@/app/_utils/register/sendCode/nodemailer";
-import { createLog } from "@/app/_utils/register/sendCode/database";
+import createLog from "@/app/_utils/register/sendCode/saveLog";
 
 export async function POST(req: Request) {
     try {

@@ -1,5 +1,5 @@
 import database from '@/app/_lib/db';
-import { RowDataPacket } from 'mysql2';
+import deleteLog from './deleteLog';
 
 const createLog = async (email: string, code: string): Promise<boolean> => {
     try {
@@ -17,16 +17,4 @@ const createLog = async (email: string, code: string): Promise<boolean> => {
     }
 }
 
-const deleteLog = async (email: string) => {
-    try {
-        const query = 'DELETE FROM logs WHERE email = ?';
-        await database.query(query, [email]);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-// 이제, 검증 후에도 deleteLog 호출해서 삭제하면 된다
-
-export { createLog };
-export { deleteLog };
+export default createLog;
