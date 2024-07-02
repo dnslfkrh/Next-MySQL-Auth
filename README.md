@@ -3,6 +3,8 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 ## first next.js project
 ### 2024. 06. ~
 
+
+---------------------------
 ## Getting Started
 
 First, run the development server:
