@@ -12,7 +12,6 @@ export async function POST(req: Request) {
             return NextResponse.json({ message: '이메일 검증 실패' }, { status: 500 });
         }
 
-        // 로그 제거 실패 시 에러?
         const isLogDeleted = await deleteLog(email);
         if (!isLogDeleted) {
             return NextResponse.json({ message: '로그 제거 실패' }, { status: 500 });
