@@ -178,32 +178,37 @@ const HOME: React.FC = () => {
         <div className="registerForm">
             <form onSubmit={(e) => { e.preventDefault(); handleIdCheck(); }}>
                 <div>
-                    아이디: <input type="text" name="id" value={formData.id} onChange={handleChange} />
+                    <label htmlFor='id'>ID: </label>
+                    <input type="text" name="id" value={formData.id} onChange={handleChange} />
                     <button type="submit">확인</button>
                 </div>
             </form>
 
             <form onSubmit={(e) => { e.preventDefault(); handleEmailSend(); }}>
                 <div>
-                    이메일: <input type="email" name="email" value={formData.email} onChange={handleChange} />
+                    <label htmlFor='email'>EMAIL: </label>
+                    <input type="email" name="email" value={formData.email} onChange={handleChange} />
                     <button type="submit">전송</button>
                 </div>
             </form>
 
             <form onSubmit={(e) => { e.preventDefault(); handleCodeVerify(); }}>
                 <div>
-                    코드: <input type="text" name="code" value={formData.code} onChange={handleChange} />
+                    <label htmlFor='code'>CODE: </label>
+                    <input type="text" name="code" value={formData.code} onChange={handleChange} />
                     <button type="submit">확인</button>
                 </div>
             </form>
 
             <div>
-                비밀번호: <input type="password" name="password" value={formData.password} onChange={handleChange} />
+                <label htmlFor='password'>PASSWORD: </label>
+                <input type="password" name="password" value={formData.password} onChange={handleChange} />
                 {isPasswordValid ? null : <span>비밀번호는 특수문자와 숫자를 포함하여 8글자 이상이어야 합니다.</span>}
             </div>
 
             <div>
-                비밀번호 확인: <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+                <label htmlFor='confirmPassword'>CONFRIM PASSWORD: </label>
+                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
                 {isConfirmPasswordValid ? null : <span>비밀번호가 일치하지 않습니다.</span>}
             </div>
 
