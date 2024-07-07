@@ -7,18 +7,18 @@ export async function POST(req: Request) {
         const data = await req.json();
         const { id, password } = data;
 
-        // 아이디 있는지 검색
         const isIdExist = await checkIdExist(id);
         if (!isIdExist) {
             return NextResponse.json({ message: '실패'}, { status: 500 })
         }
-        console.log(isIdExist);
-        // 비밀번호 검사
-        // 비밀번호 틀리면 실패
-        const isPsMatch = await checkPsMatch(id, password);
 
-        // 성공
-        
+        const isPsMatch = await checkPsMatch(id, password);
+        if (!isPsMatch) {
+            return NextResponse.json({ message: '실패'}, { status: 500 })
+        }
+
+        return NextResponse.json({ message: '성공'}, { status: 200 })
+
     } catch (error) {
         return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
     }

@@ -207,7 +207,7 @@ const HOME: React.FC = () => {
             </div>
 
             <div>
-                <label htmlFor='confirmPassword'>CONFRIM PASSWORD: </label>
+                <label htmlFor='confirmPassword'>CONFIRM PASSWORD: </label>
                 <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
                 {isConfirmPasswordValid ? null : <span>비밀번호가 일치하지 않습니다.</span>}
             </div>
