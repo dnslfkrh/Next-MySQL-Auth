@@ -19,7 +19,6 @@ export async function POST(req: Request) {
             return await responseUtil('실패', 500)
         }
 
-        // 토큰 만들어야지
         const token = await createToken(id);
         console.log(token);
         if (!token) {
