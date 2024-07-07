@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import checkIdExist from "@/app/_utils/login/id";
 import checkPsMatch from "@/app/_utils/login/password";
+import responseUtil from "@/app/_utils/_nextResponse/response";
 
 export async function POST(req: Request) {
     try {
@@ -9,17 +10,18 @@ export async function POST(req: Request) {
 
         const isIdExist = await checkIdExist(id);
         if (!isIdExist) {
-            return NextResponse.json({ message: '실패'}, { status: 500 })
+            return await responseUtil('실패', 500)
         }
 
         const isPsMatch = await checkPsMatch(id, password);
         if (!isPsMatch) {
-            return NextResponse.json({ message: '실패'}, { status: 500 })
+            return await responseUtil('실패', 500)
         }
 
-        return NextResponse.json({ message: '성공'}, { status: 200 })
+        return await responseUtil('성공', 200)
+
 
     } catch (error) {
-        return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
+        return await responseUtil('서버 오류 발생', 500)
     }
 }

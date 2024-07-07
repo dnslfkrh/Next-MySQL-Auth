@@ -18,10 +18,7 @@ export async function POST(req: Request) {
         }
 
         return NextResponse.json({ message: '이메일 검증 성공' }, { status: 200 });
-        
-        // await deleteLog(email);
-        // console.log("이메일 검증 성공");
-        // return NextResponse.json({ message: '이메일 검증 성공' }, { status: 200 });
+
     } catch (error) {
         return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
     }

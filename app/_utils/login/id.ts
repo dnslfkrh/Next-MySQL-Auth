@@ -7,10 +7,8 @@ const checkIdExist = async (id: string): Promise<boolean> => {
         const [isUserExist] = await database.execute<RowDataPacket[]>('SELECT user_id FROM users WHERE user_id = ?', [id]);
 
         if (Array.isArray(isUserExist) && isUserExist.length > 0) {
-            console.log("유저 있음");
             return true;
         } else {
-            console.log("유저 없음");
             return false;
         }
 
