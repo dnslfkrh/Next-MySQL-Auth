@@ -7,10 +7,8 @@ const checkEmailAvailability = async (email: string): Promise<boolean> => {
         const [isEmailExist] = await database.execute<RowDataPacket[]>('SELECT user_id FROM users WHERE email = ?', [email]);
 
         if (Array.isArray(isEmailExist) && isEmailExist.length === 0) {
-            console.log("사용가능");
             return true;
         } else {
-            console.log("사용불가능");
             return false;
         }
 
