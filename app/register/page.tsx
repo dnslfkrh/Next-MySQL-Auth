@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, KeyboardEvent } from 'react';
 
 interface FormData {
     id: string;
@@ -112,7 +112,7 @@ const HOME: React.FC = () => {
                 setIsEmailSent(true);
             } else {
                 const errorData = await response.json();
-                if (response.status === 400 && errorData.message === '이미 등록된 이메일입니다.') {
+                if (response.status === 400 && errorData.message === '이미 등록된 이메일') {
                     alert('사용할 수 없는 이메일입니다.');
                 } else {
                     alert('오류가 발생했습니다.');
@@ -172,47 +172,63 @@ const HOME: React.FC = () => {
         }
     };
 
+    const handleKeyDown = (e: KeyboardEvent<HTMLFormElement>) => {
+        if (e.key === 'Enter' && e.target instanceof HTMLInputElement) {
+            e.preventDefault();
+            
+            if (isFormValid) {
+                handleSubmit(e as unknown as FormEvent<HTMLFormElement>);
+            } else {
+                switch (e.target.name) {
+                    case 'id':
+                        handleIdCheck();
+                        break;
+                    case 'email':
+                        handleEmailSend();
+                        break;
+                    case 'code':
+                        handleCodeVerify();
+                        break;
+                }
+            }
+        }
+    };
+
     const isFormValid = isIdChecked && isEmailSent && isCodeVerified && isPasswordValid && isConfirmPasswordValid;
 
     return (
         <div className="registerForm">
-            <form onSubmit={(e) => { e.preventDefault(); handleIdCheck(); }}>
+            <form onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
                 <div>
                     <label htmlFor='id'>ID: </label>
                     <input type="text" name="id" value={formData.id} onChange={handleChange} />
-                    <button type="submit">확인</button>
+                    <button type="button" onClick={handleIdCheck}>확인</button>
                 </div>
-            </form>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleEmailSend(); }}>
                 <div>
                     <label htmlFor='email'>EMAIL: </label>
                     <input type="email" name="email" value={formData.email} onChange={handleChange} />
-                    <button type="submit">전송</button>
+                    <button type="button" onClick={handleEmailSend}>전송</button>
                 </div>
-            </form>
 
-            <form onSubmit={(e) => { e.preventDefault(); handleCodeVerify(); }}>
                 <div>
                     <label htmlFor='code'>CODE: </label>
                     <input type="text" name="code" value={formData.code} onChange={handleChange} />
-                    <button type="submit">확인</button>
+                    <button type="button" onClick={handleCodeVerify}>확인</button>
                 </div>
-            </form>
 
-            <div>
-                <label htmlFor='password'>PASSWORD: </label>
-                <input type="password" name="password" value={formData.password} onChange={handleChange} />
-                {isPasswordValid ? null : <span>비밀번호는 특수문자와 숫자를 포함하여 8글자 이상이어야 합니다.</span>}
-            </div>
+                <div>
+                    <label htmlFor='password'>PASSWORD: </label>
+                    <input type="password" name="password" value={formData.password} onChange={handleChange} />
+                    {isPasswordValid ? null : <span>비밀번호는 특수문자와 숫자를 포함하여 8글자 이상이어야 합니다.</span>}
+                </div>
 
-            <div>
-                <label htmlFor='confirmPassword'>CONFIRM PASSWORD: </label>
-                <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
-                {isConfirmPasswordValid ? null : <span>비밀번호가 일치하지 않습니다.</span>}
-            </div>
+                <div>
+                    <label htmlFor='confirmPassword'>CONFIRM PASSWORD: </label>
+                    <input type="password" name="confirmPassword" value={formData.confirmPassword} onChange={handleChange} />
+                    {isConfirmPasswordValid ? null : <span>비밀번호가 일치하지 않습니다.</span>}
+                </div>
 
-            <form onSubmit={handleSubmit}>
                 <div>
                     <button type="submit" disabled={!isFormValid}>완료</button>
                 </div>
