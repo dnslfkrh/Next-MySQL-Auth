@@ -32,7 +32,7 @@ const createRefreshToken = async (id: string): Promise<string | null> => {
     const SECRET_KEY = process.env.JWT_REFRESH_SECRET;
 
     if (!SECRET_KEY) {
-      throw new Error('Refresh 토큰 키 확인 필요');
+      throw new Error('토큰 키 확인 필요');
     }
 
     const refreshToken = jwt.sign(payload, SECRET_KEY, { expiresIn: '30d' });
