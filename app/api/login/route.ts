@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import checkIdExist from "@/app/_utils/login/id";
 import checkPsMatch from "@/app/_utils/login/password";
 import responseUtil from "@/app/_utils/_nextResponse/response";
-import createToken from "@/app/_utils/login/token/jwt";
+import createToken from "@/app/_utils/login/jwt/accessToken";
 
 export async function POST(req: Request) {
     try {
