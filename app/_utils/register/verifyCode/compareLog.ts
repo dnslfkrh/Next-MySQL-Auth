@@ -1,4 +1,4 @@
-import database from "@/app/_lib/db";
+import database from "@/app/_lib/mysql";
 
 const verifyCode = async (email: string, code: string): Promise<boolean> => {
     try {

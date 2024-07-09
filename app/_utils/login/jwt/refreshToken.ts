@@ -1,10 +1,17 @@
 import jwt from 'jsonwebtoken'
+import crypto from 'crypto';
 
 const createRefreshToken = async (id: string): Promise<string | null> => {
   try {
+    // 허허
+    const code1 = await Math.random().toString(36).substring(2, 20);
+    const code2 = crypto.randomBytes(16).toString('hex');
+
     const payload = {
+      forLength1: code1,
       id: id,
       type: 'refresh',
+      forLength2: code2,
       createdAt: new Date().toISOString()
     };
     const SECRET_KEY = process.env.JWT_REFRESH_SECRET;

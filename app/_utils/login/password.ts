@@ -1,5 +1,5 @@
 import bcrypt from 'bcryptjs';
-import database from '@/app/_lib/db';
+import database from '@/app/_lib/mysql';
 import { RowDataPacket } from 'mysql2';
 
 interface User extends RowDataPacket {

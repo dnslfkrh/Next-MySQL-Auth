@@ -1,4 +1,4 @@
-import database from '@/app/_lib/db';
+import database from '@/app/_lib/mysql';
 import { RowDataPacket } from 'mysql2';
 
 const checkEmailAvailability = async (email: string): Promise<boolean> => {

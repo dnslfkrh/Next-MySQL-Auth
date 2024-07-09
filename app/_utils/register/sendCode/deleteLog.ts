@@ -1,4 +1,4 @@
-import database from '@/app/_lib/db';
+import database from '@/app/_lib/mysql';
 
 const deleteLog = async (email: string): Promise<boolean> => {
     try {

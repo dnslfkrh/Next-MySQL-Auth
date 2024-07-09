@@ -1,4 +1,4 @@
-import database from '@/app/_lib/db';
+import database from '@/app/_lib/mysql';
 
 const addNewUser = async (id: string, email: string, password: string): Promise<boolean> => {
     try {
