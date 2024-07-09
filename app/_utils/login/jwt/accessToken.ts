@@ -7,7 +7,7 @@ const createAccessToken = async (id: string): Promise<string | null> => {
       type: 'access',
       createdAt: new Date().toISOString()
     };
-    const SECRET_KEY = process.env.JWT_SECRET;
+    const SECRET_KEY = process.env.JWT_ACCESS_SECRET;
 
     if (!SECRET_KEY) {
       throw new Error('토큰 키 확인 필요');
