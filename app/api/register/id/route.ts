@@ -1,20 +1,20 @@
-import { VerificationService } from "@/app/_services/auth/services/verification.service";
-import Response from "@/app/_utils/ResponseWrapper";
-import { NextRequest } from "next/server";
+import { NextResponse } from 'next/server';
+import checkIdAvailability from '@/app/_utils/register/id/searchId';
+import responseUtil from '@/app/_utils/_nextResponse/response';
 
-const verificationService = new VerificationService();
+export async function POST(req: Request) {
+    try {
+        const data = await req.json();
+        const { id } = data;
 
-export async function POST(req: NextRequest) {
-  try {
-    const { id } = await req.json();
+        const isIdAvailable = await checkIdAvailability(id);
+        if (!isIdAvailable) {
+            return await responseUtil('불가', 500)
+        }
 
-    const isIdAvailable = await verificationService.checkIdAvailability(id);
-    if (!isIdAvailable) {
-      return Response.json("불가", 400);
+        return await responseUtil('가능', 200)
+
+    } catch (error) {
+        return await responseUtil('서버 오류 발생', 500)
     }
-
-    return Response.json("가능", 200);
-  } catch (error) {
-    return Response.json("서버 오류 발생", 500);
-  }
 }
