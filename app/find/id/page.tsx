@@ -50,7 +50,7 @@ const HOME: React.FC = () => {
                     <label htmlFor="email">가입한 이메일: </label>
                     <input type="text" name="email" value={formData.email} onChange={handleChange} />
                 </div>
-                <button type="submit">로그인</button>
+                <button type="submit">아이디 찾기</button>
             </form>
         </div>
     );
