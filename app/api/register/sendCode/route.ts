@@ -1,38 +1,26 @@
-import { EmailService } from "@/app/_services/auth/services/email.service";
-import { VerificationService } from "@/app/_services/auth/services/verification.service";
-import Response from "@/app/_utils/ResponseWrapper";
-import { NextRequest } from "next/server";
+import { NextResponse } from "next/server";
+import checkEmailAvailability from "@/app/_utils/register/sendCode/emailCheck";
+import sendCode from "@/app/_lib/nodemailer";
+import responseUtil from "@/app/_utils/_nextResponse/response";
 
-const verificationService = new VerificationService();
-const emailService = new EmailService();
+export async function POST(req: Request) {
+    try {
+        const data = await req.json();
+        const { email } = data;
 
-export async function POST(req: NextRequest) {
-  try {
-    const { email } = await req.json();
+        const isEmailExist = await checkEmailAvailability(email);
+        if (!isEmailExist) {
+            return await responseUtil('이미 등록된 이메일', 400)
+        }
 
-    const isEmailExist = await verificationService.checkEmailAvailability(
-      email
-    );
-    if (!isEmailExist) {
-      return Response.json("이미 존재하는 이메일입니다.", 400);
+        const isSentSuccessfully = await sendCode(1, email);
+        if (!isSentSuccessfully) {
+            return await responseUtil('이메일 전송 실패', 500)
+        }
+
+        return await responseUtil('성공', 200)
+
+    } catch (error) {
+        return await responseUtil('서버 오류 발생', 500)
     }
-
-    const isSentSuccessfully = await emailService.sendTemplateEmail(
-      "REGISTER",
-      email,
-      {
-        code: Math.floor(Math.random() * 1000000)
-          .toString()
-          .padStart(6, "0"),
-      }
-    );
-
-    if (!isSentSuccessfully) {
-      return Response.json("이메일 전송 실패", 500);
-    }
-
-    return Response.json();
-  } catch (error) {
-    return Response.json("알 수 없는 오류가 발생했습니다.", 500);
-  }
 }
