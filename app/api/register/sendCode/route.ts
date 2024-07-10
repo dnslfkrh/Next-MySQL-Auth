@@ -5,8 +5,6 @@ import responseUtil from "@/app/_utils/_nextResponse/response";
 
 export async function POST(req: Request) {
     try {
-        const sendCase: number = 1;
-
         const data = await req.json();
         const { email } = data;
 
@@ -15,7 +13,7 @@ export async function POST(req: Request) {
             return await responseUtil('이미 등록된 이메일', 400)
         }
 
-        const isSentSuccessfully = await sendCode(sendCase, email);
+        const isSentSuccessfully = await sendCode(1, email);
         if (!isSentSuccessfully) {
             return await responseUtil('이메일 전송 실패', 500)
         }
