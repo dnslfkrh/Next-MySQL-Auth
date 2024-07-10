@@ -1,5 +1,5 @@
 /*
-1. Get user email
-2. find user id with email
-3. send email with user id
+1. 이메일 받아옴
+2. 이메일로 아이디 검색
+3. 이메일에 아이디 전송
 */
