@@ -11,19 +11,15 @@ export async function POST(req: Request) {
         const isEmailVerified = await verifyCode(email, code);
         if (!isEmailVerified) {
             return await responseUtil('이메일 검증 실패', 500);
-            // return NextResponse.json({ message: '이메일 검증 실패' }, { status: 500 });
         }
 
         const isLogDeleted = await deleteLog(email);
         if (!isLogDeleted) {
             return await responseUtil('이메일 검증 실패', 500);
-            // return NextResponse.json({ message: '로그 제거 실패' }, { status: 500 });
         }
         return await responseUtil('이메일 검증 성공', 200);
-        // return NextResponse.json({ message: '이메일 검증 성공' }, { status: 200 });
 
     } catch (error) {
         return await responseUtil('서버 오류 발생', 500);
-        // return NextResponse.json({ error: '서버 오류가 발생했습니다.' }, { status: 500 });
     }
 }
