@@ -50,6 +50,11 @@ const HOME: React.FC = () => {
         }
     }
 
+    const handleFind = (e: React.MouseEvent<HTMLButtonElement>) => {
+        console.log('아이디 찾기');
+        window.location.href = '/find'
+    }
+    
     return (
         <div className="loginForm">
             <form onSubmit={handleLogin}>
@@ -63,6 +68,9 @@ const HOME: React.FC = () => {
                 </div>
                 <button type="submit">로그인</button>
             </form>
+            <button type="button" onClick={handleFind} style={{ background: 'none', border: 'none', color: 'blue', textDecoration: 'underline', cursor: 'pointer' }}>
+                Can't Login ?
+            </button>
         </div>
     );
 }
