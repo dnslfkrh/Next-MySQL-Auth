@@ -1,10 +1,15 @@
-import jwt from 'jsonwebtoken'
+import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 
 const createRefreshToken = async (id: string): Promise<string | null> => {
   try {
-    // 허허
-    const code1 = await Math.random().toString(36).substring(2, 20);
+    const SECRET_KEY = process.env.JWT_REFRESH_SECRET;
+
+    if (!SECRET_KEY) {
+      throw new Error('토큰 키 확인 필요');
+    }
+
+    const code1 = crypto.randomBytes(16).toString('hex'); // 더 안전한 무작위성 제공
     const code2 = crypto.randomBytes(16).toString('hex');
 
     const payload = {
@@ -14,11 +19,6 @@ const createRefreshToken = async (id: string): Promise<string | null> => {
       forLength2: code2,
       createdAt: new Date().toISOString()
     };
-    const SECRET_KEY = process.env.JWT_REFRESH_SECRET;
-
-    if (!SECRET_KEY) {
-      throw new Error('토큰 키 확인 필요');
-    }
 
     const refreshToken = jwt.sign(payload, SECRET_KEY, { expiresIn: '30d' });
     return refreshToken;
