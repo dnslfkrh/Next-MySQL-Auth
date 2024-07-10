@@ -9,7 +9,7 @@ const createRefreshToken = async (id: string): Promise<string | null> => {
       throw new Error('토큰 키 확인 필요');
     }
 
-    const code1 = crypto.randomBytes(16).toString('hex'); // 더 안전한 무작위성 제공
+    const code1 = crypto.randomBytes(16).toString('hex');
     const code2 = crypto.randomBytes(16).toString('hex');
 
     const payload = {
