@@ -31,6 +31,7 @@ export async function POST(req: Request) {
         if (!refreshToken) {
             return await responseUtil('토큰 생성 실패', 500)
         }
+        // 디비 저장
 
         const response = await responseUtil('토큰 생성 성공', 200);
         response.cookies.set('at', accessToken, { 
@@ -46,8 +47,6 @@ export async function POST(req: Request) {
             maxAge: 3600 * 24 * 14,
             path: '/' 
         });
-
-        // RT 디비 저장
         
         return response;
 
