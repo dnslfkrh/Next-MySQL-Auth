@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import checkIdAvailability from '@/app/_utils/register/id/searchId';
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_/_nextResponse/response';
 
 export async function POST(req: Request) {
     try {

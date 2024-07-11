@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import hashPassword from '@/app/_utils/register/complete/hashPs';
 import addNewUser from '@/app/_utils/register/complete/newUser';
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_/_nextResponse/response';
 
 export async function POST(req: Request) {
     try {

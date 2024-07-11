@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import verifyCode from "@/app/_utils/register/verifyCode/compareLog";
 import deleteLog from "@/app/_utils/register/sendCode/deleteLog";
-import responseUtil from "@/app/_utils/_nextResponse/response";
+import responseUtil from "@/app/_/_nextResponse/response";
 
 export async function POST(req: Request) {
     try {
