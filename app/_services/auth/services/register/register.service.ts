@@ -1,5 +1,5 @@
 import database from '@/app/_lib/mysql';
-import bcrypt from 'bcryptjs';
+import { hashPassword } from '@/app/_utils/bcrypt/hashing';
 
 export const addNewUser = async (id: string, email: string, password: string): Promise<boolean> => {
     try {
@@ -13,10 +13,4 @@ export const addNewUser = async (id: string, email: string, password: string): P
         console.error(error);
         return false;
     }
-}
-
-export const hashPassword = async (password: string) => {
-    const salt = await bcrypt.genSalt(10);
-    const hashedPassword = await bcrypt.hash(password, salt);
-    return hashedPassword;
 }

@@ -55,4 +55,4 @@ export const sendCode = async (sendCase: number, email: string): Promise<boolean
         console.error('Failed to send email:', error);
         return false;
     }
-};
+}
