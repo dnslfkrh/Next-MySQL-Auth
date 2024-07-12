@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
+import { generateRandomString } from '@/app/_utils/string/randomString';
 
 export const createAccessToken = async (id: string): Promise<string | null> => {
   try {
@@ -31,8 +31,8 @@ export const createRefreshToken = async (id: string): Promise<string | null> => 
         throw new Error('토큰 키 확인 필요');
       }
   
-      const code1 = crypto.randomBytes(16).toString('hex');
-      const code2 = crypto.randomBytes(16).toString('hex');
+      const code1 = await generateRandomString();
+      const code2 = await generateRandomString();
   
       const payload = {
         forLength1: code1,
