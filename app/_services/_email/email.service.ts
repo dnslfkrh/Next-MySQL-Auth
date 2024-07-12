@@ -1,7 +1,7 @@
 import nodemailer from 'nodemailer';
 import { createLog } from '../auth/verifications/email.service';
 
-export const sendCode = async (sendCase: number, email: string): Promise<boolean> => {
+export const sendEmail = async (sendCase: number, email: string, id: string): Promise<boolean> => {
     try {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
@@ -34,7 +34,7 @@ export const sendCode = async (sendCase: number, email: string): Promise<boolean
                 mailOptions = {
                     to: email,
                     subject: 'Your ID',
-                    text: `Your ID is : [${email}]`
+                    text: `Your ID is : [${id}]`
                 };
                 await transporter.sendMail(mailOptions);
 

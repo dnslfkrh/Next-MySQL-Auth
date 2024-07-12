@@ -33,7 +33,12 @@ const HOME: React.FC = () => {
             console.log(formData.email);
 
             if (response.ok) {
-                alert('이메일을 확인하세요.');
+                const data = await response.json();
+                if (data.message === '전송 완료') {
+                    alert('이메일을 확인해 주세요.');
+                } else {
+                    alert('올바른 이메일을 입력해 주세요.');
+                }
             } else {
                 alert('오류가 발생했습니다.');
             }

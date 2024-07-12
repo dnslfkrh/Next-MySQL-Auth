@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { checkEmailAvailability } from "@/app/_services/auth/verifications/email.service";
-import { sendCode } from "@/app/_services/_email/email.service";
+import { sendEmail } from "@/app/_services/_email/email.service";
 import responseUtil from '@/app/_utils/response/response';
 
 export async function POST(req: Request) {
@@ -13,7 +13,7 @@ export async function POST(req: Request) {
             return await responseUtil('이미 등록된 이메일', 400)
         }
 
-        const isSentSuccessfully = await sendCode(1, email);
+        const isSentSuccessfully = await sendEmail(1, email, "");
         if (!isSentSuccessfully) {
             return await responseUtil('이메일 전송 실패', 500)
         }
