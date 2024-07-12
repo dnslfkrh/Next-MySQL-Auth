@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyCode } from "@/app/_services/auth/verifications/email.service";
 import { deleteLog } from "@/app/_services/auth/verifications/email.service";
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_utils/response/response';
 
 export async function POST(req: Request) {
     try {

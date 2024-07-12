@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { checkEmailAvailability } from "@/app/_services/auth/verifications/email.service";
 import { sendCode } from "@/app/_services/_email/email.service";
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_utils/response/response';
 
 export async function POST(req: Request) {
     try {

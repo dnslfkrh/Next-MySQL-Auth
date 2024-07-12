@@ -1,4 +1,4 @@
-import responseUtil from "@/app/_utils/_nextResponse/response";
+import responseUtil from "@/app/_utils/response/response";
 import { checkIdExist } from "@/app/_services/auth/verifications/id.service";
 import { checkPsMatch } from "@/app/_services/auth/services/login/login.service";
 import { createAccessToken } from "@/app/_services/auth/services/token/token.service";
@@ -20,13 +20,11 @@ export async function POST(req: Request) {
         }
 
         const accessToken = await createAccessToken(id);
-        console.log(accessToken);
         if (!accessToken) {
             return await responseUtil('토큰 생성 실패', 500)
         }
 
         const refreshToken = await createRefreshToken(id);
-        console.log(refreshToken);
         if (!refreshToken) {
             return await responseUtil('토큰 생성 실패', 500)
         }

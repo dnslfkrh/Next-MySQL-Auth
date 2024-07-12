@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { addNewUser } from '@/app/_services/auth/services/register/register.service';
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_utils/response/response';
 
 export async function POST(req: Request) {
     try {

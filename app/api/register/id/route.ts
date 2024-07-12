@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { checkIdExist } from '@/app/_services/auth/verifications/id.service';
-import responseUtil from '@/app/_utils/_nextResponse/response';
+import responseUtil from '@/app/_utils/response/response';
 
 export async function POST(req: Request) {
     try {
