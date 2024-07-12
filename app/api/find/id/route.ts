@@ -9,7 +9,6 @@ export async function POST(req: Request) {
         const { email } = await req.json();
         console.log(email);
 
-        // 이제 디비 조회
         const isEmailValid = await findId(email);
         if (isEmailValid == null) {
             return await responseUtil('실패', 200);
