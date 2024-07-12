@@ -1,8 +1,12 @@
 import responseUtil from "@/app/_utils/response/response";
 import { checkIdExist } from "@/app/_services/auth/verifications/id.service";
 import { checkPsMatch } from "@/app/_services/auth/services/login/login.service";
-import { createAccessToken } from "@/app/_services/auth/services/token/token.service";
-import { createRefreshToken } from "@/app/_services/auth/services/token/token.service";
+import {
+    createAccessToken,
+    createRefreshToken,
+    saveRefreshToken 
+} from "@/app/_services/auth/services/token/token.service";
+import { hashString } from "@/app/_utils/bcrypt/hashing";
 
 export async function POST(req: Request) {
     try {
@@ -28,7 +32,13 @@ export async function POST(req: Request) {
         if (!refreshToken) {
             return await responseUtil('토큰 생성 실패', 500)
         }
-        // 디비 저장
+
+        const hashedRT = await hashString(refreshToken);
+
+        const isRefreshTokenSaved = await saveRefreshToken(id, hashedRT);
+        if (!isRefreshTokenSaved) {
+            return await responseUtil('refresh token 저장 실패', 500)
+        }
 
         const response = await responseUtil('토큰 생성 성공', 200);
         response.cookies.set('at', accessToken, { 
