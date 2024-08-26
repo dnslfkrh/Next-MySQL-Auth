@@ -1,2 +1,1 @@
-## first next.js project
-### 2024. 06. ~
+## next.js testing project
